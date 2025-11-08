@@ -17,27 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [PrintLanguageVersions]
     steps:
-      - name: Install MongoDB 5.0
-        run: |
-          # Update package list
-          sudo apt-get update
-          
-          # Install MongoDB 5.0
-          sudo apt-get install -y gnupg
-          wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-          echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
-          
-          # Update package list again to include MongoDB repo
-          sudo apt-get update
-          
-          # Install MongoDB
-          sudo apt-get install -y mongodb-org
-
       - name: Print PostgreSQL Version
         run: psql --version
-
       - name: Print MySQL Version
         run: mysql -V
-
-      - name: Print MongoDB Version
-        run: mongod --version
+      
