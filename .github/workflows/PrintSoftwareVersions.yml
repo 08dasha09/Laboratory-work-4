@@ -6,12 +6,9 @@ jobs:
   PrintLanguageVersions:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Java Version
-        run: java --version
       - name: Print Node Version
         run: node --version
-      - name: Print Python Version
-        run: python --version
+      
 
   PrintDBMSVersions:
     runs-on: ubuntu-latest
