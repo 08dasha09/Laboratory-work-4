@@ -34,4 +34,4 @@ jobs:
 
   
       - name: Print MongoDB Version
-        run: mongo --version
+        run: mongod --version
