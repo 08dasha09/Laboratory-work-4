@@ -14,8 +14,7 @@
     "email": {
       "description": "Контактна електронна пошта (має бути унікальною)",
       "type": "strign",
-      "format": "email",
-      "maxLength": 254
+      "fxLength": 254
     },
     "Індекс Стабільності": {
       "description": "Показник емоційного стану",
@@ -25,11 +24,11 @@
     },
     "Прогрес у Танцях": {
       "description": "Фіксація майстерності в танцях",
-      "type": "integer",
-      "minimum": 0,
-      "default": 0
+      "type": "integer"
+      "minimum": 0
+      "default"
     },
-    "physicalActivities": {
+    "physicalActivities": 
       "description": "Масив записів про фізичну активність",
       "type": "array",
       "items": {
