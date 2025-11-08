@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Гармонійний Користувач",
+  "description": "Фізична схема (JSON Schema) для документа 'Гармонійний Користувач' у NoSQL БД",
+  "type": "object",
+  "properties": {
+    "ПІБ": {
+      "description": "Повне ім'я та прізвище користувача (мін. 2 слова)",
+      "type": "string",
+      "pattern": "^([A-Za-zА-Яа-яІіЇїЄє'-]+ +[A-Za-zА-Яа-яІіЇїЄє'-]+.*)$",
+      "minLength": 3,
+      "maxLength": 150
+    },
+    "email": {
+      "description": "Контактна електронна пошта (має бути унікальною)",
+      "type": "string",
+      "format": "email",
+      "maxLength": 254
+    },
+    "Індекс Стабільності": {
+      "description": "Показник емоційного стану",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "Прогрес у Танцях": {
+      "description": "Фіксація майстерності в танцях",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "physicalActivities": {
+      "description": "Масив записів про фізичну активність",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "кроки": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "дата": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["кроки", "дата"]
+      }
+    },
+    "onlineOrders": {
+      "description": "Масив онлайн-замовлень користувача",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "дата_створення": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "сума": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "статус": {
+            "type": "string",
+            "enum": ["очікує", "підтверджено", "скасовано"],
+            "maxLength": 30
+          },
+          "eventDetails": {
+            "description": "Вкладені деталі про танцювальну подію",
+            "type": "object",
+            "properties": {
+              "назва": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255
+              },
+              "опис": {
+                "type": "string",
+                "maxLength": 1000
+              },
+              "дата_проведення": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "вартість": {
+                "type": "number",
+                "minimum": 0
+              },
+              "studioDetails": {
+                "description": "Вкладені деталі про студію",
+                "type": "object",
+                "properties": {
+                  "назва": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 255
+                  },
+                  "адреса": {
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "Вологість": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                },
+                "required": ["назва"]
+              }
+            },
+            "required": ["назва", "дата_проведення", "вартість"]
+          }
+        },
+        "required": ["дата_створення", "сума", "статус", "eventDetails"]
+      }
+    },
+    "moodAssessments": {
+      "description": "Масив оцінок настрою після аудіо-сесій",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "оцінка": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "дата_оцінки": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sessionDetails": {
+            "description": "Вкладені деталі про аудіо-сесію",
+            "type": "object",
+            "properties": {
+              "назва": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 255
+              },
+              "тривалість": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "категорія": {
+                "description": "Категорія (тільки літери, мін. 3)",
+                "type": "string",
+                "pattern": "^[A-Za-zА-Яа-яІіЇїЄє]{3,}$",
+                "minLength": 3,
+                "maxLength": 50
+              }
+            },
+            "required": ["назва", "тривалість"]
+          }
+        },
+        "required": ["оцінка", "дата_оцінки", "sessionDetails"]
+      }
+    },
+    "friends": {
+      "description": "Масив ID інших користувачів (друзів)",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "ID Користувача (напр., MongoDB ObjectId)",
+        "minLength": 24,
+        "maxLength": 24
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": ["ПІБ", "email"]
+}
